@@ -12,6 +12,7 @@ export function createButton() {
     });
 }
 
+// createButton()
 /*
    2. Создайте функцию createArrList(arr), в которую передается 1 параметр: arr - массив строк.
       Функция выводит этот массив в виде маркированного списка внутри тега body.
@@ -29,13 +30,13 @@ export function createArrList(arr) {
     });
     ul.addEventListener('mouseover', (e) => {
         if (e.target && e.target.nodeName === 'LI') {
-            console.log('1');
             let el = e.target;
             el.setAttribute('title', `${el.textContent}`);
         }
     });
 }
 
+// createArrList(['нулевой элемент','первый элемент','второй элемент',])
 /*
    3. Создайте функцию createLink(), которая сгенерирует следующую разметку и вставит ее в body:
 
@@ -44,8 +45,22 @@ export function createArrList(arr) {
       При первом клике по ссылке в конец ее текста через пробел дописывается ее href.
       При следующем клике происходит действие по умолчанию (переход по ссылке в текущей вкладке).
 */
-// export function createLink() {}
-
+export function createLink() {
+    let body = document.querySelector('body');
+    body.insertAdjacentHTML(
+        'afterbegin',
+        '<a href="https://tensor.ru/">tensor</a>',
+    );
+    let a = document.querySelector('a');
+    let click = function (e) {
+        if (a.textContent === 'tensor') {
+            e.preventDefault();
+            a.innerText = a.innerText + ' ' + a.href;
+        }
+    };
+    a.addEventListener('click', click);
+}
+// createLink()
 /*
    4. Создайте функцию createList(), которая сгенерирует следующую разметку и вставит ее в body:
 
@@ -58,4 +73,23 @@ export function createArrList(arr) {
       При клике по button в конец списка добавляется новый элемент li с текстом: "Пункт".
       Клик по новому li также добавляет восклицательный знак в конец текста.
 */
-// export function createList() {}
+export function createList() {
+    let body = document.querySelector('body');
+    let element = `<ul>
+      <li>Пункт</li>
+   </ul>
+   <button>Добавить пункт</button>`;
+    body.innerHTML = element;
+    body.addEventListener('click', (e) => {
+        if (e.target && e.target.nodeName === 'LI') {
+            console.log(e.target.nodeName);
+            e.target.innerText = e.target.innerText + '!';
+        }
+        if (e.target && e.target.nodeName === 'BUTTON') {
+            console.log(e.target.nodeName);
+            let ul = document.querySelector('ul');
+            ul.insertAdjacentHTML('beforeend', '<li>Пункт</li>');
+        }
+    });
+}
+// createList()
